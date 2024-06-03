@@ -1,0 +1,57 @@
+Pasii de rezolvare pentru aceasta tema au fost urmatorii:
+    - am declarat constantele: TIME_EXCEEDED, DEST_UNREACHABLE, ARP_TYPE,
+    IP_TYPE cu valorile specifice sugerate.
+
+    - am declarat global tabela de rutare, tabela arp si lungimile acestora
+
+-------------------------------------------------------------------------------
+
+Functii:
+    - am construit functia mySwap care primeste doua variabile de tip uint32_t*
+    pe care le interschimba. Voi folosi aceasta functia mai tarziu, cand se vor
+    trimite mesajele de eroare, deoarece vom interschimba adresa sursa cu
+    adresa destinatie.
+    
+    - get_arp_entry: aceasta functie returneaza un pointer catre intrarea
+    corespunzatoare, daca este gasita. Se itereaza prin tabela arp, iar daca se
+    gaseste adresa ip cautata, se returneaza.
+
+    -get_best_route: aceasta functie itereaza prin tabela de rutare pentru a
+    gasi intrarea care se potriveste cel mai bine cu adresa IP destinatie,
+    cu ajutorul mastii. Se alege masca cea mai lunga, pentru eficienta
+
+    -send_icmp_ttl_exceeded: functie care are rolul de a trimite un mesaj de
+    tip "TIME EXCEEDED", constanta definita la inceputul codului. Mai intai se
+    seteaza campurile ICMP-ului si se memoreaza header-ul IP original, plus
+    primii 8 octeti. Se inverseaza adresele IP si apoi se completeaza campurile
+    headerului. Dupa aceea, se seteaza adresa MAC si se trimite pachetul.
+
+    -send_icmp_dest_unreachable: analog functiei anterioare, doar ca tipul
+    mesajului este DEST_UNREACHABLE, in loc de TIME_EXCEEDED
+-------------------------------------------------------------------------------
+
+Main:
+    -am alocat memorie pentru tabele si le-am citit lungimile
+
+    - in while, am verificat daca type-ul etherului este de tip IP. Daca da,
+    se declara un pointer ip header. Se salveaza checksum-ul original, se
+    obtine checksum ul nou calculat, iar daca valorile sunt diferite,
+    se ignora pachetul.
+    Dupa aceea se decrementeaza ttl-ul, iar daca acesta este mai mic sau egal
+    decat 1, se va apela functia send_icmp_ttl_exceeded.
+
+    -apoi se calculeaza noul checksum dupa ce se decrementeaza ttl-ul si se
+    obtine best_route-ul adresei ip de destinatie. Daca aceasta nu a fost
+    gasita se apeleaza functia specifica acestui caz,
+    send_icmp_dest_unreachable.
+
+    -apoi se cauta adresa MAC a urmatorului hop din tabela ARP, iar daca nu se
+    gaseste se ignora pachetul. Daca toate conditiile au fost indeplinite,
+    se seteaza adresele MAC destinatie si sursa, si se trimite pachetul
+    respectiv
+-------------------------------------------------------------------------------
+
+Am lucrat destul de mult la aceasta tema deoarece a fost destul de dificil sa
+descopar cauza erorilor mele, dar a fost o tema interesanta care m-a ajutat sa
+aprofundez anumite concepte pe care le-am folosit si in rezolvarea
+laboratorului 4, chiar daca nu am reusit sa rezolv toata tema.
