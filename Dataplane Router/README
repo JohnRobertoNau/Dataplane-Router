@@ -1,4 +1,4 @@
-Pasii de rezolvare pentru aceasta tema au fost urmatorii:
+Pasii de rezolvare pentru acest proiect au fost urmatorii:
     - am declarat constantele: TIME_EXCEEDED, DEST_UNREACHABLE, ARP_TYPE,
     IP_TYPE cu valorile specifice sugerate.
 
@@ -50,8 +50,3 @@ Main:
     se seteaza adresele MAC destinatie si sursa, si se trimite pachetul
     respectiv
 -------------------------------------------------------------------------------
-
-Am lucrat destul de mult la aceasta tema deoarece a fost destul de dificil sa
-descopar cauza erorilor mele, dar a fost o tema interesanta care m-a ajutat sa
-aprofundez anumite concepte pe care le-am folosit si in rezolvarea
-laboratorului 4, chiar daca nu am reusit sa rezolv toata tema.
